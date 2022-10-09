@@ -77,13 +77,20 @@ public abstract class Bag {
      */
     public void addItem(String item) {
         if (this.numberOfContents < this.capacity) {
-            String[] newContents = new String[this.contents.length + 1];
-            for (int i = 0; i <= this.contents.length - 1; i++) {
-                newContents[i] = this.contents[i];
+            if (this.contents == null) {
+                String[] newContents = new String[this.capacity];
+                newContents[0] = item;
+            } else{
+                String[] newContents = new String[this.contents.length + 1];
+                for (int i = 0; i <= this.contents.length - 1; i++) {
+                    newContents[i] = this.contents[i];
+                }
+                newContents[this.contents.length] = item;
+                this.contents = newContents;
+                this.numberOfContents += 1;
             }
-            newContents[this.contents.length] = item;
-            this.contents = newContents;
-            this.numberOfContents += 1;
+
+
         }
     }
 
@@ -101,16 +108,20 @@ public abstract class Bag {
      * @return
      */
     public String popItem() {
-        String lastItem = this.contents[this.contents.length - 1];
+        if (this.contents == null) {
+            return null;
+        } else {
+            String lastItem = this.contents[this.contents.length - 1];
 
-        String[] newContents = new String[this.contents.length - 1];
-        for (int i = 0; i <= this.contents.length - 2; i++) {
-            newContents[i] = this.contents[i];
+            String[] newContents = new String[this.contents.length - 1];
+            for (int i = 0; i <= this.contents.length - 2; i++) {
+                newContents[i] = this.contents[i];
+            }
+            this.contents = newContents;
+            this.numberOfContents -= 1;
+            return lastItem;
         }
-        this.contents = newContents;
-        this.numberOfContents -= 1;
 
-        return lastItem;
     }
 
 
@@ -123,12 +134,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-        String[] newContents = new String[this.contents.length + n];
-        for (int i = 0; i <= this.contents.length - 1; i++) {
-            newContents[i] = this.contents[i];
-        }
-        this.contents = newContents;
-        this.numberOfContents += n;
+        this.capacity += n;
     }
 
     /**
