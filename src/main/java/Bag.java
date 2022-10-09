@@ -80,6 +80,8 @@ public abstract class Bag {
             if (this.contents == null) {
                 String[] newContents = new String[this.capacity];
                 newContents[0] = item;
+                this.contents = newContents;
+                this.numberOfContents += 1;
             } else{
                 String[] newContents = new String[this.contents.length + 1];
                 for (int i = 0; i <= this.contents.length - 1; i++) {
